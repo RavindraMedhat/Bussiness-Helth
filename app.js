@@ -389,7 +389,7 @@ app.post('/submit-ratings', async (req, res) => {
     try {
         const data = new Rating(finalData);
         data.save();
-        res.redirect('/thank-you');
+        res.redirect('/BussinessHelth/'+finalData.CompanyName);
 
     } catch (err) {
         console.log(err);
