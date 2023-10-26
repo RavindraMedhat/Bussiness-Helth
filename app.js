@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
-const port = 7485;
+const port = process.env.PORT || 7485;
+
 const Rating = require('./Models/ratings');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/BussinessHelthDatabase', {
+mongoose.connect('mongodb+srv://test:74857485@cluster0.3snq0fm.mongodb.net/BussinessHelthDatabase', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
