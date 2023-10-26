@@ -79,7 +79,7 @@
         console.log(companyName);
 
         $.ajax({
-            url: `http://103.217.85.148:8080/data/${companyName}`,
+            url: `https://business-health.cyclic.app/data/${companyName}`,
             method: 'GET',
             success: function (data) {
 
@@ -243,7 +243,7 @@
         const companyName = document.getElementById('Company').innerHTML;
 
         $.ajax({
-            url: `http://103.217.85.148:8080/data/${companyName}`,
+            url: `https://business-health.cyclic.app/data/${companyName}`,
             method: 'GET',
             success: function (data) {
                 if (Array.isArray(data)) {

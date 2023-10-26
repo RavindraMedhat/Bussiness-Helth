@@ -401,5 +401,5 @@ app.post('/submit-ratings', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://103.217.85.148:8080/}`);
+    console.log(`Server is running on https://business-health.cyclic.app/}`);
 });
