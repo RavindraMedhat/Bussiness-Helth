@@ -1,0 +1,295 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Department Radar Chart</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    header {
+        background-color: #0074cc;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    #Company {
+        font-size: 24px;
+    }
+
+    .chart-container {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+    }
+
+    canvas {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <h1 id="Company">
+        <%= Company %>
+    </h1>
+    <h2>Bussiness Helth</h2>
+    <div style="width: 40%; height: 40%;">
+        <canvas id="departmentRadarChart"></canvas>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+
+        var departments = [];
+        var counts = [];
+
+
+        const companyName = document.getElementById('Company').innerHTML;
+        console.log(companyName);
+
+        $.ajax({
+            url: `http://103.217.85.148:8080/data/${companyName}`,
+            method: 'GET',
+            success: function (data) {
+
+                // console.log(data);
+
+                if (Array.isArray(data)) {
+
+                    const departments = data.map(item => item.department);
+                    const counts = data.map(item => item.count);
+
+                    // console.log(departments);
+                    // console.log(counts);
+
+                    const ctx = document.getElementById('departmentRadarChart').getContext('2d');
+
+                    new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: departments,
+                            datasets: [{
+                                label: 'Department Counts',
+                                data: counts,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                r: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                    const tableBody = document.getElementById('tableBody');
+                    tableBody.innerHTML = ''; // Clear previous content
+                    for (let i = 0; i < departments.length; i++) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td>${departments[i]}</td><td>${counts[i]}</td>`;
+                        tableBody.appendChild(row);
+                    }
+                } else {
+                    console.error('Invalid data format received from the server');
+                }
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+
+    </script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Department Radar Chart</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+        /* Align items vertically at the top */
+    }
+
+    #data {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+
+    }
+
+    header {
+        background-color: #0074cc;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        flex: 1;
+    }
+
+    h1,
+    h2 {
+        text-align: center;
+    }
+
+    #Company {
+        font-size: 24px;
+    }
+
+    .chart-container {
+        width: 60%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+    }
+
+    canvas {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .table-container {
+        flex: 1;
+        padding: 20px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<body>
+    <h1 id="Company">
+        <%= Company %>
+    </h1>
+    <h2>Business Health</h2>
+    <div id="data">
+        <div class="chart-container" style="width: 40%; height: 40%;">
+            <canvas id="departmentRadarChart"></canvas>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be populated here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        var departments = [];
+        var counts = [];
+
+        const companyName = document.getElementById('Company').innerHTML;
+
+        $.ajax({
+            url: `http://103.217.85.148:8080/data/${companyName}`,
+            method: 'GET',
+            success: function (data) {
+                if (Array.isArray(data)) {
+                    const departments = data.map(item => item.department);
+                    const counts = data.map(item => item.count);
+
+                    // Create the chart
+                    const ctx = document.getElementById('departmentRadarChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: departments,
+                            datasets: [{
+                                label: 'Department Counts',
+                                data: counts,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                r: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                    // Populate the table
+                    const tableBody = document.getElementById('tableBody');
+                    tableBody.innerHTML = ''; // Clear previous content
+                    for (let i = 0; i < departments.length; i++) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td>${departments[i]}</td><td>${counts[i]}</td>`;
+                        tableBody.appendChild(row);
+                    }
+                } else {
+                    console.error('Invalid data format received from the server');
+                }
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+
+</html>
