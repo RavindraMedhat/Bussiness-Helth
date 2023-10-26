@@ -211,6 +211,18 @@
     th {
         background-color: #f2f2f2;
     }
+    #addRatingLink {
+        text-decoration: none;
+        padding: 5px 10px;
+        background-color: #007BFF;
+        color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    #addRatingLink:hover {
+        background-color: #0056b3;
+    }
 </style>
 
 <body>
@@ -218,6 +230,7 @@
         <%= Company %>
     </h1>
     <h2>Business Health</h2>
+    <a href="/" id="addRatingLink">Back</a>
     <div id="data">
         <div class="chart-container" style="width: 40%; height: 40%;">
             <canvas id="departmentRadarChart"></canvas>
