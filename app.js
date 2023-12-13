@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const es = require("express-session");
 
-const User = require('./models/Users'); // Adjust the path based on your project structure
-
 const allRout = require("./Routers/allRout");
 const port = process.env.PORT || 7485;
 
