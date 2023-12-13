@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5; /* Updated background color */
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+        color: #d9534f; /* Updated text color */
+    }
+
+    div {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        display: block;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #d9534f; /* Updated button color */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px; /* Increased margin for better separation */
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between; /* Added to align text to opposite ends */
+        align-items: center;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        padding: 10px;
+        transition: background-color 0.3s;
+    }
+
+    .company-list li:hover {
+        background-color: #e3e3e3;
+    }
+
+    #addRatingLink {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 5px 10px;
+        background-color: #d9534f; /* Updated link color */
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    #addRatingLink:hover {
+        background-color: #ac2925; /* Updated link hover color */
+    }
+
+    #searchContainer {
+        padding: 10px;
+        background-color: #f0f0f0;
+    }
+
+    #logoutButton {
+        float: right;
+        padding: 5px 10px;
+        background-color: #d9534f;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    #logoutButton:hover {
+        background-color: #ac2925;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<script>
+    function parseDate(timestamp) {
+        const date = new Date(timestamp);
+        return isNaN(date) ? "Invalid Date" : date.toLocaleString();
+    }
+</script>
+
+<body>
+    <a href="/user/logout" id="logoutButton">Logout</a>
+    <% if(isAdmin){ %>
+    <h1>Company List</h1>
+    <% }else{ %>
+    <h1><%= CompanyName %></h1>
+    <% } %>
+    <div id="searchContainer">
+            <% if(isAdmin){ %>
+            <div>
+                <form action="./companyList" method="get">
+                    
+                    <h2>Search for a Company</h2>
+                    <input type="text" id="str" name="str" placeholder="Enter company name">
+                    <button id="searchButton">Search</button>
+                    
+                </form>
+            </div>
+            <a href="/indicator/indicators" id="addRatingLink">Add New Indicator</a>
+            <%}else{ %>
+                <a href="addRating" id="addRatingLink">Add New Rating</a>
+                <% } %>
+        </div>
+
+        <div>
+            <h2>Recods</h2>
+            <ul id="companyList" class="company-list">
+                <% var oldScore = 0; %>
+                <% companies.forEach(function (company) { %>
+                    <li onclick="window.location.href='detailPage/<%= company.id %>'">
+                            <span><%= company.CompanyName %></span>
+                            <span><%= company.formattedTimestamp %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <% if (oldScore < company.overallScore) { %>
+                                    <span style="color: green;">&nbsp;<%= company.overallScore %>&nbsp;&nbsp;<i class="fas fa-arrow-up"></i></span>
+                                <% } else if (oldScore > company.overallScore) { %>
+                                    <span style="color: red;">&nbsp;<%= company.overallScore %>&nbsp;&nbsp;<i class="fas fa-arrow-down"></i></span>
+                                <% } else { %>
+                                    <%= company.overallScore %>
+                                <% } %>
+                                <% oldScore = company.overallScore; %>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+        
+    
+</body>
+
+</html>

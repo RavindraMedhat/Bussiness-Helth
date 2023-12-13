@@ -1,0 +1,163 @@
+<!-- Indicators.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicators</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #d9534f; /* Red color */
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Full width */
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 50px;
+            box-sizing: border-box;
+
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #d9534f; /* Red color */
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #d9534f; /* Red color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .area-card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 10px;
+            width: calc(100% - 40px); /* Adjust the width as needed */
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #d9534f; /* Red color */
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 10px;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        li:hover {
+            background-color: #e3e3e3;
+        }
+        .back-button {
+            float: right;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #d9534f; /* Red color */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 120px; /* Adjust width as needed */
+            margin: 20px auto;
+            margin-bottom: 50px;
+        }
+
+        .back-button:hover {
+            background-color: #ac2925; /* Darker red on hover */
+        }
+    </style>
+     <script>
+        function fillArea(area) {
+            document.getElementById('area').value = area;
+        }
+    </script>
+</head>
+
+<body>
+    <a href="/Company/companyList" class="back-button">Back</a>
+    <h1>All Indicators</h1>
+    <!-- Form to add a new indicator -->
+    <form action="/indicator/addIndicator" method="post" id="addIndicatorForm">
+        <label for="area">Area:</label>
+        <input type="text" name="area" id="area" required>
+
+        <label for="performanceIndicator">Performance Indicator:</label>
+        <input type="text" name="performanceIndicator" required>
+
+        <!-- Add more fields as needed -->
+
+        <button type="submit">Add Indicator</button>
+    </form>
+
+    <!-- Display existing indicators sorted by area -->
+    <% let currentArea = ''; %>
+    <% indicators.forEach(function (indicator) { %>
+        <% if (indicator.area !== currentArea) { %>
+            <!-- Start new area card -->
+            <% if ('' !== currentArea) { %>
+            </div>
+            <% }%>
+            
+            <% currentArea = indicator.area; %>
+        
+            <div class="area-card" onclick="fillArea('<%= indicator.area %>')">
+                <h2 style="color: #d9534f; text-align: center;"><%= indicator.area %></h2>
+                <ul>
+                <% } %>
+                <li><%= indicator.performanceIndicator %></li>
+                <% }); %>
+                </ul>
+            
+        </div>
+</body>
+
+</html>

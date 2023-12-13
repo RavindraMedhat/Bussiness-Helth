@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d9534f;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #d9534f;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .login-link {
+    margin-top: 10px;
+    font-size: 14px;
+    }
+
+    .login-link a {
+    color: #d9534f;
+    text-decoration: none;
+    }
+
+    .login-link a:hover {
+    text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="./register" method="post">
+    <h1>User Registration</h1>
+    <label for="email">Email:</label>
+    <input type="email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" required>
+
+    <label for="companyName">Company Name:</label>
+    <input type="text" name="companyName" required>
+
+    <label for="contactPerson">Contact Person:</label>
+    <input type="text" name="contactPerson" required>
+
+    <label for="mobileNumber">Mobile Number:</label>
+    <input type="text" name="mobileNumber" required>
+
+    <button type="submit">Register</button>
+    <div class="login-link">
+        Already have an account? Please <a href="./login">Login</a>
+      </div>
+  </form>
+</body>
+
+</html>

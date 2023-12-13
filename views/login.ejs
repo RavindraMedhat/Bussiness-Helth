@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #d9534f;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .error-message {
+      color: #d9534f;
+      margin-top: 10px;
+    }
+
+    .register-link {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .register-link a {
+      color: #d9534f;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="./login" method="post">
+    <h1>User Login</h1>
+    
+    <!-- Display error message if exists -->
+    <% if (errorMessage) { %>
+      <div class="error-message"><%= errorMessage %></div>
+    <% } %>
+
+    <label for="Email">Email:</label>
+    <input type="text" name="Email" required>
+
+    <label for="Password">Password:</label>
+    <input type="password" name="Password" required>
+
+    <button type="submit">Login</button>
+
+    <div class="register-link">
+      Don't have an account? <a href="./register">Register here</a>
+    </div>
+  </form>
+</body>
+
+</html>
