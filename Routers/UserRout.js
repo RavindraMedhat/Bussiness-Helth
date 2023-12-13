@@ -3,7 +3,7 @@ const app = express()
 const User = require("../models/Users");
 
 app.get('/register', (req, res) => {
-    res.render('register');
+    res.render('register.ejs');
 });
 
 app.post('/register', async (req, res) => {
